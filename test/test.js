@@ -108,13 +108,13 @@ describe('splitMultipleBackgrounds function', () => {
   const splitMultipleBackgrounds = get('splitMultipleBackgrounds');
 
   it('should return an array of background values', () => {
-    const value = 'url(http://example.com/image.png), linear-gradient(to right, rgba(255, 255, 255, 0),  rgba(255, 255, 255, 1)), url(/public/images/cool.png) at-2x, url(http://example.com/flowers-pattern.jpg) at-2x;';
+    const value = 'url(http://example.com/image.png), linear-gradient(to right, rgba(255, 255, 255, 0),  rgba(255, 255, 255, 1)), url(/public/images/cool.png) at-nx, url(http://example.com/flowers-pattern.jpg) at-nx;';
 
     expect(splitMultipleBackgrounds(value)).toEqual([
       'url(http://example.com/image.png)',
       ' linear-gradient(to right, rgba(255, 255, 255, 0),  rgba(255, 255, 255, 1))',
-      ' url(/public/images/cool.png) at-2x',
-      ' url(http://example.com/flowers-pattern.jpg) at-2x;',
+      ' url(/public/images/cool.png) at-nx',
+      ' url(http://example.com/flowers-pattern.jpg) at-nx;',
     ]);
   });
 });
@@ -133,7 +133,7 @@ describe('extractRetinaImage function', () => {
   });
 
   it('should return none for non-image values with an identifier', () => {
-    const value = 'transparent at-2x';
+    const value = 'transparent at-nx';
     expect(extractRetinaImage(ident, value)).toEqual('none');
   });
 
@@ -143,7 +143,7 @@ describe('extractRetinaImage function', () => {
   });
 
   it('should return a retina version of the image', () => {
-    const value = 'url("images/image.png") at-2x';
+    const value = 'url("images/image.png") at-nx';
     expect(extractRetinaImage(ident, value)).toEqual('url("images/image@2x.png")');
   });
 });
@@ -152,7 +152,7 @@ describe('createRetinaImages function', () => {
   const createRetinaImages = get('createRetinaImages');
 
   it('should return an array of retina images', () => {
-    const value = 'url(http://example.com/image.png), url(/public/images/cool.png) at-2x, url(http://example.com/flowers-pattern.jpg) at-2x;';
+    const value = 'url(http://example.com/image.png), url(/public/images/cool.png) at-nx, url(http://example.com/flowers-pattern.jpg) at-nx;';
     expect(createRetinaImages(value, '@2x')).toEqual('url(http://example.com/image.png), url(/public/images/cool@2x.png), url(http://example.com/flowers-pattern@2x.jpg)');
   });
 });
